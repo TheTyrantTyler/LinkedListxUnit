@@ -1,18 +1,24 @@
-﻿using System;
+using System;
+using System.Security.Authentication.ExtendedProtection;
+using LinkedListxUnit.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LinkedListxUnit
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Add First:");
-            LinkedList myList1 = new LinkedList();
-
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddTransient<ILinkedList, LinkedList>();
+            serviceCollection.AddSingleton<IConsoleOutput, ConsoleOutput>();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var myList1 = serviceProvider.GetService<ILinkedList>();
             myList1.AddFirst("Hello");
             myList1.AddLast("Magical");
             myList1.AddLast("World");
-            myList1.printAllNodes();
+            myList1.PrintAllNodes();
             
         }
     }
