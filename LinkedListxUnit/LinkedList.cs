@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using LinkedListxUnit.Interfaces;
 
 namespace LinkedListxUnit
@@ -6,49 +6,74 @@ namespace LinkedListxUnit
     public class LinkedList : ILinkedList
     {
         private Node head;
-
-        public void printAllNodes()
+        private readonly IConsoleOutput _output;
+            
+        public LinkedList(IConsoleOutput output)
         {
-            Node current = head;
+            _output = output;
+
+        }
+        public void PrintAllNodes()
+        {
+            var current = head;
             while (current != null)
             {
-                Console.WriteLine(current.data);
-                current = current.next;
+                _output.Write(current.Data);
+                current = current.Next;
             }
+            
         }
 
-        public void AddFirst(Object data)
+        public object GetData()
         {
-            Node toAdd = new Node();
-            toAdd.data = data;
+            var current = head;
+            while (current != null)
+            {
+                _output.Write(current.Data);
+                if (current.Next != null)
+                {
+                    current = current.Next;
+                }
+                else
+                {
+                    return current.Data;
+                }
+            }
+
+            return default;
+        }
+        public void AddFirst(object data)
+        {
+            var toAdd = new Node();
+            toAdd.Data = data;
             if (head == null)
             {
                 head = toAdd;
-                toAdd.next = null;
+                toAdd.Next = null;
             }
             else
             {
-                Node next = head;
-                toAdd.next = next;
+                var next = head;
+                toAdd.Next = next;
                 head = toAdd;
             }
 
         }
 
-        public void AddLast(Object data)
+        public void AddLast(object data)
         {
-            Node toAdd = new Node();
-            toAdd.data = data;
-            Node current = head;
+            var toAdd = new Node();
+            toAdd.Data = data;
+            var current = head;
             while (current != null)
             {
-                if (current.next == null)
+                if (current.Next == null)
                 {
-                    current.next = toAdd;
+                    current.Next = toAdd;
                     break;
                 }
 
-                current = current.next;
+                current = current.Next;
             }
         }
 

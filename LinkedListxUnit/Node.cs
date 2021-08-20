@@ -5,7 +5,7 @@ namespace LinkedListxUnit
 {
     public class Node : INode
     {
-        public Node next;
-        public Object data;
+        public Node Next { get; set; }
+        public object Data { get; set; }
     }
 }
