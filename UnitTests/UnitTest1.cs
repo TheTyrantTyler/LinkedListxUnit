@@ -25,10 +25,11 @@ namespace UnitTests
         public void TestMockingConcept()
         {
             var mockList = new Mock<IConsoleOutput>();
-            mockList.Setup(p => p.Write("hello")).Returns("hello");
-            var holder = new ConsoleOutput(mockList.Object);
-            var result = holder.Write("hello");
-            Assert.Same("hello", result);
+            mockList.Setup(p => p.Write("hello")).Equals("hello");
+            
+            var holder = new LinkedList(mockList.Object);
+            holder.AddFirst("hello");
+            Assert.Same("hello", holder.GetData());
 
         }
         
